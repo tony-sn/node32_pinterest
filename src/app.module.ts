@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtStrategy } from './strategy/jwt.strategy';
+import { ImageModule } from './image/image.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { JwtStrategy } from './strategy/jwt.strategy';
       isGlobal: true,
     }),
     AuthModule,
+    ImageModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService, JwtStrategy],
