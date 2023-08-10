@@ -30,6 +30,11 @@ export class ImageController {
     return this.imageService.findOne(+id);
   }
 
+  @Get('/get-image-by-name/:imageName')
+  findImageByName(@Param('imageName') imageName: string) {
+    return this.imageService.findImageByName(imageName);
+  }
+
   @Get('/check-savedimage/:id')
   findSavedImage(@Param('id') id: string) {
     return this.imageService.findSavedImage(+id);

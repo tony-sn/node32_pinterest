@@ -15,19 +15,42 @@ export class ImageService {
   async findAll(): Promise<image[]> {
     const data = await this.prisma.image.findMany();
     return data;
-
-    // return `This action returns all image`;
   }
 
+  // find image info and user info based on image_id
   async findOne(id: number) {
-    const data = await this.prisma.image.findFirst({
+    try {
+      const data = await this.prisma.image.findFirst({
+        where: {
+          image_id: id,
+        },
+      });
+      const { user_id } = data;
+      const userInfo = await this.prisma.user.findFirst({
+        where: {
+          user_id,
+        },
+      });
+      const imageData = {
+        ...data,
+        user: userInfo,
+      };
+      return imageData;
+    } catch {
+      throw new Error(`404: cannot find any image`);
+    }
+  }
+
+  async findImageByName(imageName: string) {
+    const data = await this.prisma.image.findMany({
       where: {
-        image_id: id,
+        image_name: {
+          startsWith: imageName,
+        },
       },
     });
-    console.log('image return', { data });
+    if (!data) return `404: cannot find any image with this name`;
     return data;
-    // return `This action returns a #${id} image`;
   }
 
   findSavedImage(id: number) {
