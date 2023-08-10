@@ -18,4 +18,7 @@ export class UserController {
   getUserById(@Param('userId') userId: string) {
     return this.userService.getUserById(Number(userId));
   }
+
+  // TODO:
+  // need a route for upload-avatar
 }
