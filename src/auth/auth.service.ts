@@ -18,7 +18,7 @@ export class AuthService {
 
     let token = this.jwtService.signAsync(
       { data: 'data' },
-      { secret: this.configService.get('KEY'), expiresIn: '5m' },
+      { secret: this.configService.get('KEY'), expiresIn: '15m' },
     );
 
     return token;

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param } from '@nestjs/common';
 import { PrismaClient, image } from '@prisma/client';
 
 import { CreateImageDto } from './dto/create-image.dto';
@@ -8,13 +8,29 @@ import { UpdateImageDto } from './dto/update-image.dto';
 export class ImageService {
   prisma = new PrismaClient();
 
-  create(createImageDto: CreateImageDto) {
+  async create(createImageDto: CreateImageDto) {
+    const { image_id, user_id, image_name, url, description } = createImageDto;
+
+    const file = await console.log('create image success', {});
     return 'This action adds a new image';
   }
 
   async findAll(): Promise<image[]> {
     const data = await this.prisma.image.findMany();
     return data;
+  }
+
+  async findAllByUser(id: number) {
+    try {
+      const data = await this.prisma.image.findMany({
+        where: {
+          user_id: id,
+        },
+      });
+      return { success: true, data };
+    } catch (error) {
+      return { success: false, message: `401: Cannot find image list!` };
+    }
   }
 
   // find image info and user info based on image_id
@@ -53,15 +69,60 @@ export class ImageService {
     return data;
   }
 
-  findSavedImage(id: number) {
-    return `This action returns a #${id} saved image`;
+  async findSavedImage(id: number) {
+    try {
+      const data = await this.prisma.save_image.findMany({
+        where: {
+          user_id: id,
+        },
+      });
+      return { success: true, data };
+    } catch (err) {
+      return {
+        success: false,
+        message: `404: cannot find any saved image. ${err}`,
+      };
+    }
   }
 
   update(id: number, updateImageDto: UpdateImageDto) {
     return `This action updates a #${id} image`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} image`;
+  async remove(userDelete: { userId: string; id: string }) {
+    const { userId, id } = userDelete;
+    try {
+      const user = await this.prisma.image.findFirst({
+        where: {
+          user_id: Number(userId),
+        },
+      });
+      if (!user) {
+        return {
+          success: false,
+          message: `404: Cannot find user!`,
+        };
+      }
+      const data = await this.prisma.image.findFirst({
+        where: {
+          image_id: Number(id),
+        },
+      });
+      if (!data) {
+        return {
+          success: false,
+          message: `404: Cannot find the image!`,
+        };
+      }
+
+      const deleteImage = await this.prisma.image.delete({
+        where: {
+          image_id: Number(id),
+        },
+      });
+      return { success: true, message: 'Image deleted!', deleteImage };
+    } catch (err) {
+      return { success: false, message: `404: ` };
+    }
   }
 }
