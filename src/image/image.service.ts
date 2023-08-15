@@ -1,4 +1,5 @@
 import { Injectable, Param } from '@nestjs/common';
+
 import { PrismaClient, image } from '@prisma/client';
 
 import { CreateImageDto } from './dto/create-image.dto';
@@ -12,6 +13,7 @@ export class ImageService {
     const { image_id, user_id, image_name, url, description } = createImageDto;
 
     const file = await console.log('create image success', {});
+
     return 'This action adds a new image';
   }
 
@@ -32,6 +34,7 @@ export class ImageService {
       return { success: false, message: `401: Cannot find image list!` };
     }
   }
+
 
   // find image info and user info based on image_id
   async findOne(id: number) {
@@ -83,6 +86,7 @@ export class ImageService {
         message: `404: cannot find any saved image. ${err}`,
       };
     }
+
   }
 
   update(id: number, updateImageDto: UpdateImageDto) {
@@ -124,5 +128,6 @@ export class ImageService {
     } catch (err) {
       return { success: false, message: `404: ` };
     }
+
   }
 }

@@ -5,3 +5,4 @@ export class CreateImageDto {
   url: string;
   description: string;
 }
+

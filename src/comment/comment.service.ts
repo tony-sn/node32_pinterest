@@ -10,6 +10,7 @@ export class CommentService {
   //   return 'This action adds a new comment';
   // }
 
+
   async findOne(id: number) {
     try {
       const commentData = await this.prisma.comment.findFirst({
@@ -80,6 +81,7 @@ export class CommentService {
       };
     } catch (err) {
       return { success: false, message: `401: Cannot create comment. ${err}` };
+
     }
   }
 }

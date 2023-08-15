@@ -12,6 +12,7 @@ import { CommentService } from './comment.service';
 import { Comment as CommentDto } from './dto';
 import { AuthGuard } from '@nestjs/passport';
 
+
 @Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) { }
@@ -32,6 +33,7 @@ export class CommentController {
   async createComment(@Body() body: CommentDto, @Headers('token') token) {
     return this.commentService.createComment(body);
   }
+
 
   // TODO: add route for get comment based on image id
   // POST request for post a new comment

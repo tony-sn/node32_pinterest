@@ -19,6 +19,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 
+
 @Controller('image')
 export class ImageController {
   constructor(private readonly imageService: ImageService) { }
@@ -58,6 +59,7 @@ export class ImageController {
     return this.imageService.findAllByUser(+userId);
   }
 
+
   @Get('/get-image/:id')
   findOne(@Param('id') id: string) {
     return this.imageService.findOne(+id);
@@ -71,6 +73,7 @@ export class ImageController {
   @Get('/check-saved-image/:userId')
   findSavedImage(@Param('userId') userId: string) {
     return this.imageService.findSavedImage(+userId);
+
   }
 
   // TODO: need more route
@@ -89,7 +92,6 @@ export class ImageController {
   @HttpCode(200)
   @Delete()
   remove(
-    // @Param('id') id: string,
     @Body() body: { userId: string; id: string },
     @Headers('token') token: string,
   ) {
