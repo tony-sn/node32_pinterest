@@ -1,10 +1,10 @@
 -- -------------------------------------------------------------
--- TablePlus 5.3.9(502)
+-- TablePlus 5.4.0(504)
 --
 -- https://tableplus.com/
 --
 -- Database: db_pinterest
--- Generation Time: 2023-08-06 00:08:40.8330
+-- Generation Time: 2023-08-16 09:35:46.3010
 -- -------------------------------------------------------------
 
 
@@ -19,7 +19,7 @@
 
 
 CREATE TABLE `comment` (
-  `comment_id` int NOT NULL,
+  `comment_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `image_id` int DEFAULT NULL,
   `comment_date` date DEFAULT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE `comment` (
   KEY `image_id` (`image_id`),
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`image_id`) REFERENCES `image` (`image_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `image` (
   `image_id` int NOT NULL,
@@ -72,7 +72,12 @@ INSERT INTO `comment` (`comment_id`, `user_id`, `image_id`, `comment_date`, `con
 (7, 7, 7, '2023-08-07', 'Cute puppy!'),
 (8, 8, 8, '2023-08-08', 'Historical beauty!'),
 (9, 9, 9, '2023-08-09', 'Breathtaking mountains!'),
-(10, 10, 10, '2023-08-10', 'Unique artwork!');
+(10, 10, 10, '2023-08-10', 'Unique artwork!'),
+(11, 3, 10, '2023-08-11', 'This is art!'),
+(12, 3, 10, '2023-08-11', 'I love this too'),
+(13, 1, 10, '2023-11-08', 'This is a comment for the photo'),
+(14, 1, 1, '2023-11-08', 'This is a comment for the photo'),
+(15, 2, 9, '2023-11-08', 'This is a comment for the photo number 9');
 
 INSERT INTO `image` (`image_id`, `user_id`, `image_name`, `url`, `description`) VALUES
 (1, 1, 'Image 1', 'https://example.com/image1.jpg', 'A beautiful landscape'),
@@ -84,7 +89,8 @@ INSERT INTO `image` (`image_id`, `user_id`, `image_name`, `url`, `description`) 
 (7, 7, 'Image 7', 'https://example.com/image7.jpg', 'Adorable puppy with a hat'),
 (8, 8, 'Image 8', 'https://example.com/image8.jpg', 'Ancient architecture'),
 (9, 9, 'Image 9', 'https://example.com/image9.jpg', 'Snow-capped mountains'),
-(10, 10, 'Image 10', 'https://example.com/image10.jpg', 'Artistic abstract painting');
+(10, 10, 'Image 10', 'https://example.com/image10.jpg', 'Artistic abstract painting'),
+(11, 1, 'Image 11', 'https://example.com/image11.jpg', 'Another beautiful landscape');
 
 INSERT INTO `save_image` (`user_id`, `image_id`, `save_date`) VALUES
 (1, 3, '2023-08-01'),

@@ -4,7 +4,7 @@
 		"name": "Pinterest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "24217894",
-		"_collection_link": "https://www.postman.com/satellite-candidate-42961691/workspace/pinterest/collection/24217894-f06606f3-ae4b-40bb-9ee3-6a8940c41b58?action=share&creator=24217894&source=collection_link"
+		"_collection_link": "https://www.postman.com/satellite-candidate-42961691/workspace/pinterest/collection/24217894-f06606f3-ae4b-40bb-9ee3-6a8940c41b58?action=share&source=collection_link&creator=24217894"
 	},
 	"item": [
 		{
@@ -49,6 +49,33 @@
 			"response": []
 		},
 		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": 13,\n    \"age\": 32,\n    \"full_name\": \"Aang\",\n    \"email\": \"theavatar@gmail.com\",\n    \"password\": \"abcde12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/auth/sign-up",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"auth",
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Users",
 			"request": {
 				"auth": {
@@ -76,7 +103,7 @@
 			"response": []
 		},
 		{
-			"name": "Get A User",
+			"name": "Get a User",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -104,13 +131,174 @@
 			"response": []
 		},
 		{
-			"name": "Signup",
+			"name": "Get Images",
 			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/image/get-image",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"image",
+						"get-image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an Image and user by imageId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/image/get-image/11",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"image",
+						"get-image",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Images by Name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \n}"
+				},
+				"url": {
+					"raw": "{{domain}}/image/get-image-by-name/Image%201",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"image",
+						"get-image-by-name",
+						"Image%201"
+					],
+					"query": [
+						{
+							"key": "imageName",
+							"value": "Image",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Images by Name Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \n}"
+				},
+				"url": {
+					"raw": "{{domain}}/image/get-image-by-user/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"image",
+						"get-image-by-user",
+						"1"
+					],
+					"query": [
+						{
+							"key": "imageName",
+							"value": "Image",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Comment by Image Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/comment/get-comment/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"comment",
+						"get-comment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Comments in an Image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/comment/get-comments/{{imageId}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"comment",
+						"get-comments",
+						"{{imageId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post a comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user_id\": 13,\n    \"age\": 32,\n    \"full_name\": \"Aang\",\n    \"email\": \"theavatar@gmail.com\",\n    \"password\": \"abcde12345\"\n}",
+					"raw": "{\n    \"commentId\": 15,\n    \"commentDate\": \"2023-11-08\",\n    \"content\": \"This is a comment for the photo number 9\",\n    \"imageId\": 9,\n    \"userId\": 2\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -118,17 +306,167 @@
 					}
 				},
 				"url": {
-					"raw": "{{domain}}/auth/sign-up",
+					"raw": "{{domain}}/comment/",
 					"host": [
 						"{{domain}}"
 					],
 					"path": [
-						"auth",
-						"sign-up"
+						"comment",
+						""
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Upload an image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/tony/Documents/Wallpapers/medusaNebula.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{domain}}/image/upload-image",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"image",
+						"upload-image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post an image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/tony/Documents/Wallpapers/medusaNebula.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{domain}}/image",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get saved images by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/image/check-saved-image/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"image",
+						"check-saved-image",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 1,\n    \"id\": 12\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/image",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"image"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"variable": [
@@ -139,6 +477,10 @@
 		{
 			"key": "token",
 			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiZGF0YSIsImlhdCI6MTY5MTIzOTM1MywiZXhwIjoxNjkxMjM5NjUzfQ.mk5VnmGGSnltOedTNBkBcFBrGdMwqTCBfwl1XaqxoTk"
+		},
+		{
+			"key": "imageId",
+			"value": "10"
 		}
 	]
 }
