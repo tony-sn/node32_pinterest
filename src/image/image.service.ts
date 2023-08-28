@@ -35,7 +35,6 @@ export class ImageService {
     }
   }
 
-
   // find image info and user info based on image_id
   async findOne(id: number) {
     try {
@@ -72,29 +71,12 @@ export class ImageService {
     return data;
   }
 
-  async findSavedImage(id: number) {
-    try {
-      const data = await this.prisma.save_image.findMany({
-        where: {
-          user_id: id,
-        },
-      });
-      return { success: true, data };
-    } catch (err) {
-      return {
-        success: false,
-        message: `404: cannot find any saved image. ${err}`,
-      };
-    }
-
-  }
-
   update(id: number, updateImageDto: UpdateImageDto) {
     return `This action updates a #${id} image`;
   }
 
-  async remove(userDelete: { userId: string; id: string }) {
-    const { userId, id } = userDelete;
+  async remove(userDelete: { userId: string }, id: number) {
+    const { userId } = userDelete;
     try {
       const user = await this.prisma.image.findFirst({
         where: {
@@ -128,6 +110,5 @@ export class ImageService {
     } catch (err) {
       return { success: false, message: `404: ` };
     }
-
   }
 }

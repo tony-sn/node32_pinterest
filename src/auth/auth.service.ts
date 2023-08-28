@@ -41,11 +41,20 @@ export class AuthService {
       };
 
       await this.prisma.user.create({ data: newUser });
+      const message = 'Signup successfully. Please sign in!';
 
-      return 'Signup successfully. Please sign in!';
+      return {
+        success: true,
+        message,
+        data: {
+          user_id: newUser.user_id,
+          age: newUser.age,
+          full_name: newUser.full_name,
+          email: newUser.email,
+        },
+      };
     } catch (error) {
       throw new Error(error);
-      // console.error('500: BE error', error);
     }
   }
 }
